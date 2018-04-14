@@ -1,0 +1,149 @@
+UnBundle 'briancollins/vim-jst'
+UnBundle 'nathanaelkane/vim-indent-guides'
+UnBundle 'mhinz/vim-signify'
+UnBundle 'tpope/vim-abolish.git'
+UnBundle 'reedes/vim-litecorrect'
+UnBundle 'scrooloose/syntastic'
+UnBundle 'hail2u/vim-css3-syntax'
+UnBundle 'tpope/vim-haml'
+UnBundle 'mattn/emmet-vim'
+UnBundle 'tpope/vim-rails'
+UnBundle 'Shougo/neocomplete.vim.git'
+UnBundle 'Shougo/neosnippet'
+UnBundle 'Shougo/neosnippet-snippets'
+UnBundle 'gcmt/wildfire.vim'
+"UnBundle 'bling/vim-bufferline'
+UnBundle 'vim-addon-mw-utils'
+UnBundle 'tomtom/tlib_vim'
+UnBundle 'rhysd/conflict-marker.vim'
+UnBundle 'vim-scripts/sessionman.vim'
+UnBundle 'spf13/vim-colors'
+UnBundle 'vim-scripts/restore_view.vim'
+UnBundle 'kana/vim-textobj-user'
+UnBundle 'kana/vim-textobj-indent'
+UnBundle 'reedes/vim-textobj-sentence'
+UnBundle 'reedes/vim-textobj-quote'
+UnBundle 'reedes/vim-wordy'
+UnBundle 'mattn/webapi-vim'
+UnBundle 'tpope/vim-commentary'
+UnBundle 'godlygeek/tabular'
+UnBundle 'luochen1990/rainbow'
+UnBundle 'arnaud-lb/vim-php-namespace'
+UnBundle 'klen/python-mode'
+UnBundle 'python_match.vim'
+UnBundle 'pythoncomplete'
+UnBundle 'pangloss/vim-javascript'
+UnBundle 'kchmck/vim-coffee-script'
+UnBundle 'quentindecock/vim-cucumber-align-pipes'
+UnBundle 'rust-lang/rust.vim'
+UnBundle 'amirh/HTML-AutoCloseTag'
+UnBundle 'saltstack/salt-vim'
+"UnBundle 'flazz/vim-colorschemes'
+"UnBundle 'gorodinskiy/vim-coloresque'
+UnBundle 'spf13/PIV'
+UnBundle 'elzr/vim-json'
+UnBundle 'groenewege/vim-less'
+UnBundle 'honza/vim-snippets'
+UnBundle 'mbbill/undotree'
+
+"UnBundle 'altercation/vim-colors-solarized'
+set nofoldenable
+set mouse-=a
+set nospell
+set formatoptions=ql
+
+if isdirectory(expand("~/.vim/bundle/vim-autoformat"))
+    "let g:autoformat_remove_trailing_spaces=1
+    "let g:autoformat_autoindent=1
+    "let g:autoformat_retab=1
+   "autocmd FileType vim,tex let b:autoformat_autoindent=0
+    "set autoread
+    "let g:formatdef_my_cpp = '"astyle --style=google"'
+    "let g:formatters_cpp = ['my_cpp']
+    "au BufWrite * :Autoformat
+    "noremap <F5> :Autoformat<CR>
+
+    nnoremap <leader>cf :call FormatCode("Chromium")<cr>
+    nnoremap <leader>lf :call FormatCode("LLVM")<cr>
+    vnoremap <leader>cf :call FormatCode("Chromium")<CR>
+    vnoremap <leader>lf :call FormatCode("LLVM")<cR>
+    nnoremap <leader>gf :call FormatCode("Google")<cr>
+    vnoremap <leader>gf :call FormatCode("Google")<CR>
+    "let g:autoformat_verbosemode = 1
+    func FormatCode(style)
+        let firstline=line(".")
+        let lastline=line(".")
+        " Visual mode
+        if exists(a:firstline)
+            firstline = a:firstline
+            lastline = a:lastline
+        endif
+        let g:formatdef_clangformat = "'clang-format --lines='.a:firstline.':'.a:lastline.' --assume-filename='.bufname('%').' -style=" . a:style . "'"
+        let formatcommand = ":" . firstline . "," . lastline . "Autoformat"
+        exec formatcommand
+    endfunc
+endif
+
+if isdirectory(expand("~/.vim/bundle/nerdtree"))
+    nnoremap <silent> <F12> :A<CR>
+    let g:DisableAutoPHPFolding=1
+    map <leader>e :NERDTreeFind<CR>
+    nmap <leader>nt :NERDTreeFind<CR>
+    nmap <F2> :NERDTreeToggle<CR>
+    let NERDTreeWinSize=34
+    let NERDTreeWinPos="left"
+    let NERDTreeShowBookmarks=1
+    let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+    let NERDTreeChDirMode=0
+    let NERDTreeQuitOnOpen=0
+    let NERDTreeShowLineNumbers=1
+    let NERDTreeShowBookmarks=1
+    let NERDTreeMouseMode=2
+    let NERDTreeShowHidden=0
+    let NERDTreeKeepTreeInNewTab=1
+    autocmd vimenter * NERDTree
+    wincmd w
+    autocmd VimEnter * wincmd w
+    let g:nerdtree_tabs_open_on_gui_startup=0
+endif
+
+" Taglist{
+if isdirectory(expand("~/.vim/bundle/taglist.vim"))
+    nmap <F3> :TlistToggle<CR>
+    let Tlist_Show_One_File=1
+    let Tlist_Exit_OnlyWindow=1
+    let Tlist_Use_Right_Window=1
+endif
+"}
+
+" MiniBufExplorer {
+if isdirectory(expand("~/.vim/bundle/minibufexpl.vim"))
+    let g:miniBufExplMapCTabSwitchBufs=1
+    map <Leader>bl :MBEToggle<cr>
+    "let g:miniBufExplMapWindowNavVim = 1
+    "let g:miniBufExplMapWindowNavArrows = 1
+    "let g:miniBufExplMapCTabSwitchBufs = 1
+    "let g:miniBufExplModSelTarget = 1
+    " buffer 切换快捷键
+    map <C-Tab> :MBEbn<cr>
+    map <C-S-Tab> :MBEbp<cr>"
+endif
+"}
+map <Leader>L <Plug>(easymotion-bd-jk)
+
+"colorscheme molokai
+set ts=2
+set shiftwidth=2
+set softtabstop=2
+colorscheme peaksea
+set background=dark
+set cursorline
+set cursorcolumn
+hi CursorColumn guibg=grey40 ctermbg=238
+hi CursorLine term=underline cterm=underline guibg=grey40
+"highlight Comment ctermfg=green guifg=green
+"colorscheme atom
+"colorscheme kellys
+"colorscheme solarized
+"colorscheme hybrid_material
+"color molokai_dark
